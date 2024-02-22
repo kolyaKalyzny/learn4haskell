@@ -71,6 +71,8 @@ Modules should have the same name as the corresponding file with
 the `.hs` extension.
 -}
 module Chapter1 where
+import GHC.Natural (Natural)
+import Control.Arrow (Arrow(first))
 
 {- |
 In Haskell, we have __expressions__. Expressions can be represented by some
@@ -429,7 +431,9 @@ task is to specify the type of this function.
 49
 -}
 
+squareSum :: Num a => a -> a -> a
 squareSum x y = (x + y) * (x + y)
+
 
 
 {- |
@@ -449,7 +453,7 @@ Implement the function that takes an integer value and returns the next 'Int'.
   function body with the proper implementation.
 -}
 next :: Int -> Int
-next x = error "next: not implemented!"
+next x = x + 1  
 
 {- |
 After you've implemented the function (or even during the implementation), you
@@ -490,7 +494,8 @@ Implement a function that returns the last digit of a given number.
   whether it works for you!
 -}
 -- DON'T FORGET TO SPECIFY THE TYPE IN HERE
-lastDigit n = error "lastDigit: Not implemented!"
+lastDigit :: Integral a => a -> a
+lastDigit n = mod n 10
 
 
 {- |
@@ -520,7 +525,10 @@ branches because it is an expression and it must always return some value.
   satisfying the check will be returned and, therefore, evaluated.
 -}
 closestToZero :: Int -> Int -> Int
-closestToZero x y = error "closestToZero: not implemented!"
+closestToZero x y = 
+  if abs x < abs y
+    then x
+    else y
 
 
 {- |
@@ -554,7 +562,11 @@ value after "=" where the condition is true.
 Casual reminder about adding top-level type signatures for all functions :)
 -}
 
-mid x y z = error "mid: not implemented!"
+mid :: Int -> Int -> Int -> Int
+mid x y z 
+  | (x <= y && y <= z) || (z <= y && y <= x) = y
+  | (y <= x && x <= z) || (z <= x && x <= y) = x
+  | otherwise = z
 
 {- |
 =⚔️= Task 8
@@ -568,7 +580,14 @@ True
 >>> isVowel 'x'
 False
 -}
-isVowel c = error "isVowel: not implemented!"
+isVowel :: Char -> Bool
+isVowel c  
+  | c == 'a' = True
+  | c == 'e' = True
+  | c == 'i' = True
+  | c == 'o' = True
+  | c == 'u' = True
+  | otherwise = False
 
 
 {- |
@@ -616,6 +635,7 @@ You can define multiple functions inside __where__!
 Just remember to keep proper indentation.
 -}
 
+
 {- |
 =⚔️= Task 9
 
@@ -632,7 +652,12 @@ Try to introduce variables in this task (either with let-in or where) to avoid
 specifying complex expressions.
 -}
 
-sumLast2 n = error "sumLast2: Not implemented!"
+
+sumLast2 :: Int -> Int
+sumLast2 n = 
+  let lastDig = mod n 10
+      beforeLastDig = mod (div n 10) 10
+  in lastDig + beforeLastDig
 
 
 {- |
@@ -653,7 +678,11 @@ You need to use recursion in this task. Feel free to return to it later, if you
 aren't ready for this boss yet!
 -}
 
-firstDigit n = error "firstDigit: Not implemented!"
+firstDigit :: Integral t => t -> t
+firstDigit n = 
+  if n < 10 
+    then n 
+    else firstDigit (div n 10)
 
 
 {-
