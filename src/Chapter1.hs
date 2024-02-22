@@ -231,11 +231,11 @@ Boolean 'and' operator:
 
 Addition of two numbers:
 >>> :t (+)
-(+) :: Num a => a -> a -> a
+(+) :: Int -> Int -> Int
 
 Maximum of two values:
 >>> :t max
-max :: Ord a => a -> a -> a
+max :: Int -> Int -> Int
 
 You might not understand each type at this moment, but don't worry! You've only
 started your Haskell journey. Types will become your friends soon.
